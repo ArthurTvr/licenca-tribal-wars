@@ -17,19 +17,19 @@ app.get("/", (req, res) => {
 
 app.post("/validate-access", async (req, res) => {
   try {
-    const { world, tribeTag, tribeName, playerName } = req.body || {};
+    const { world, tribeId, tribeTag, tribeName, playerName } = req.body || {};
 
-    if (!world || !tribeTag) {
+    if (!world || !tribeId) {
       return res.status(400).json({
         authorized: false,
-        message: "world e tribeTag são obrigatórios"
+        message: "world e tribeId são obrigatórios"
       });
     }
 
     const license = tribeLicenses.find(
       (item) =>
         item.world.toLowerCase() === String(world).toLowerCase() &&
-        item.tribeTag.toLowerCase() === String(tribeTag).toLowerCase()
+        String(item.tribeId) === String(tribeId)
     );
 
     if (!license) {
@@ -57,7 +57,8 @@ app.post("/validate-access", async (req, res) => {
       authorized: true,
       playerName: playerName || "",
       world,
-      tribeTag: license.tribeTag,
+      tribeId: license.tribeId,
+      tribeTag: license.tribeTag || tribeTag || "",
       tribeName: license.tribeName || tribeName || "",
       expiresAt: license.expiresAt,
       cacheTtlHours: 12
