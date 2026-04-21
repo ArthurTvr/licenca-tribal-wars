@@ -1,6 +1,6 @@
 const tribeLicenses = [
   {
-    world: "br101",
+    world: "br139",
     tribeTag: "King",
     tribeName: "Asd",
     active: true,
