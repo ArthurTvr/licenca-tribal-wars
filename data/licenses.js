@@ -6,6 +6,14 @@ const tribeLicenses = [
     tribeName: "King",
     active: true,
     expiresAt: "2026-12-31T23:59:59.000Z"
+  },
+    {
+    world: "br138",
+    tribeId: "710",
+    tribeTag: "CrocoS",
+    tribeName: "CROCODILO SUL",
+    active: true,
+    expiresAt: "2026-12-31T23:59:59.000Z"
   }
 ];
 
