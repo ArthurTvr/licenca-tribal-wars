@@ -1,15 +1,15 @@
 const tribeLicenses = [
   {
-    world: "br139",
-    tribeTag: "King",
-    tribeName: "Asd",
+    world: "br101",
+    tribeTag: "OSBRABOS",
+    tribeName: "Os Brabos",
     active: true,
     expiresAt: "2026-12-31T23:59:59.000Z"
   },
   {
     world: "br101",
-    tribeTag: "TESTE",
-    tribeName: "Teste",
+    tribeTag: "ALPHA",
+    tribeName: "Alpha Team",
     active: false,
     expiresAt: "2026-10-01T23:59:59.000Z"
   }

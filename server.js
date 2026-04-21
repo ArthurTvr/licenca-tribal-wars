@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-
 const tribeLicenses = require("./data/licenses");
-const getPlayerTribe = require("./services/getPlayerTribe");
 
 const app = express();
 app.use(cors());
@@ -19,28 +17,19 @@ app.get("/", (req, res) => {
 
 app.post("/validate-access", async (req, res) => {
   try {
-    const { playerName, world } = req.body || {};
+    const { world, tribeTag, tribeName, playerName } = req.body || {};
 
-    if (!playerName || !world) {
+    if (!world || !tribeTag) {
       return res.status(400).json({
         authorized: false,
-        message: "playerName e world são obrigatórios"
-      });
-    }
-
-    const playerTribe = await getPlayerTribe(playerName, world);
-
-    if (!playerTribe) {
-      return res.json({
-        authorized: false,
-        message: "Não foi possível identificar a tribo do jogador"
+        message: "world e tribeTag são obrigatórios"
       });
     }
 
     const license = tribeLicenses.find(
       (item) =>
         item.world.toLowerCase() === String(world).toLowerCase() &&
-        item.tribeTag.toLowerCase() === String(playerTribe.tribeTag).toLowerCase()
+        item.tribeTag.toLowerCase() === String(tribeTag).toLowerCase()
     );
 
     if (!license) {
@@ -66,10 +55,10 @@ app.post("/validate-access", async (req, res) => {
 
     return res.json({
       authorized: true,
-      playerName,
+      playerName: playerName || "",
       world,
       tribeTag: license.tribeTag,
-      tribeName: license.tribeName,
+      tribeName: license.tribeName || tribeName || "",
       expiresAt: license.expiresAt,
       cacheTtlHours: 12
     });
